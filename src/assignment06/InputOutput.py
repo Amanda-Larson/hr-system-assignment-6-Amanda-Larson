@@ -38,7 +38,7 @@ class Menu:
         Returns:
             None.
         """
-        print() #spacing
+        print()  # spacing
         print('HUMAN RESOURCES PROGRAM'.center(38))
         print('------Menu------'.center(38))
         print('\n[1] Load HR Records From File\n[2] Save Records to File\n[3] Add A New Employee')
@@ -81,7 +81,8 @@ class Reports:
         """
         print(f'{"============ Human Resources File: Current Employees ============":^95}')
         print()
-        print(f'{header[0].replace("_", " ").title():<15}{header[1].replace("_", " ").title():<20}{header[5].replace("_", " ").title():<30}{header[6].replace("_", " ").title():>12}')
+        print(
+            f'{header[0].replace("_", " ").title():<15}{header[1].replace("_", " ").title():<20}{header[5].replace("_", " ").title():<30}{header[6].replace("_", " ").title():>12}')
         for row in table:
             if row['end_date'] == '':
                 print(f'{row["employee_id"]:<15}{row["name"]:<20}{row["job_title"]:<30}{row["start_date"]:>12}')
@@ -103,13 +104,14 @@ class Reports:
         time_since = today - left_day
         print(f'{"============ Human Resources File: Employees Who Have Left Recently ============":^95}')
         print()
-        print(f'{header[0].replace("_", " ").title():<15}{header[1].replace("_", " ").title():<20}{header[5].replace("_", " ").title():<30}{header[6].replace("_", " ").title():>12}{header[7].replace("_", " ").title():>12}')
+        print(
+            f'{header[0].replace("_", " ").title():<15}{header[1].replace("_", " ").title():<20}{header[5].replace("_", " ").title():<30}{header[6].replace("_", " ").title():>12}{header[7].replace("_", " ").title():>12}')
         for row in table:
             if row['end_date'] != '':
                 end_date = datetime.datetime.strptime(row['end_date'], '%m/%d/%Y')
                 if end_date >= time_since:
-
-                    print(f'{row["employee_id"]:<15}{row["name"]:<20}{row["job_title"]:<30}{row["start_date"]:>12}{row["end_date"]:>12}')
+                    print(
+                        f'{row["employee_id"]:<15}{row["name"]:<20}{row["job_title"]:<30}{row["start_date"]:>12}{row["end_date"]:>12}')
         print(f'{"=" * 75:^95}\n')
 
     @staticmethod
@@ -123,16 +125,22 @@ class Reports:
             None.
         """
         today = datetime.datetime.now()
-        review_time = datetime.timedelta(days=90) #days until review
+        review_time = datetime.timedelta(days=90)  # days until review
         review_date = today + review_time
+
         print(review_date)
-        print(f'{"============ Human Resources File: Upcoming Reviews: ============":^95}')
+        print(f'{"============ Human Resources File: Upcoming Employee Reviews ============":^95}')
         print()
-        print(f'{header[0].replace("_", " ").title():<15}{header[1].replace("_", " ").title():<20}{header[5].replace("_", " ").title():<30}{header[6].replace("_", " ").title():>12}')
+        print(
+            f'{header[0].replace("_", " ").title():<15}{header[1].replace("_", " ").title():<20}{header[5].replace("_", " ").title():<50}{header[6].replace("_", " ").title():>12}')
         for row in table:
-            if datetime.datetime.strptime(row['start_date'], "%m/%d/%Y") <= review_date:
-                print(f'{row["employee_id"]:<15}{row["name"]:<20}{row["job_title"]:<30}{row["start_date"]:>12}')
+            conv_date = datetime.datetime.strptime(row['start_date'], '%m/%d/%Y')
+            today = datetime.datetime.now()
+            mod_date = datetime.datetime(today.year, conv_date.month, conv_date.day)
+            if today < mod_date < review_date:
+                print(f'{row["employee_id"]:<15}{row["name"]:<20}{row["job_title"]:<50}{row["start_date"]:>12}')
         print(f'{"=" * 75:^95}')
+
 
 class new_employee:
     """Class to get user input/add for new employee information to the list of employeess.
@@ -173,7 +181,6 @@ class new_employee:
             except ValueError:
                 print("Error: must be in MM/DD/YYYY format, please try again.")
 
-
     @staticmethod
     def employee_job():
         job_title = input('Enter employee\'s job title: ')
@@ -194,7 +201,6 @@ class new_employee:
                 return start_date
             except ValueError:
                 print("Error: must be in MM/DD/YYYY format, please try again.")
-
 
     @staticmethod
     def employee_end():
