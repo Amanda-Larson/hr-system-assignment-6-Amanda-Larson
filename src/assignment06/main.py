@@ -44,7 +44,7 @@ while True:
     elif choice == 3:
         # Files.FileProcessor.read_file(HP_HR, table) #first read in excisting employees otherwise the  new employee id will start at 1
         employee_id = len(table)+1
-        new_employee = {'employee_id': employee_id, 'name': IO.new_employee.employee_name(), 'address': IO.new_employee.employee_address(), 'ssn': IO.new_employee.employee_ssn(), 'dob': IO.new_employee.employee_dob(), 'job_title': IO.new_employee.employee_job(), 'start_date': IO.new_employee.employee_start()}
+        new_employee = {'employee_id': employee_id, 'name': IO.new_employee.employee_name(), 'address': IO.new_employee.employee_address(), 'ssn': IO.new_employee.employee_ssn(), 'dob': IO.new_employee.employee_dob(), 'job_title': IO.new_employee.employee_job(), 'start_date': IO.new_employee.employee_start(), 'end_date': IO.new_employee.employee_end()}
         table.append(new_employee)
         # print(table)
 
@@ -55,7 +55,7 @@ while True:
         IO.Reports.show_unemployed(table)
 
     elif choice == 6:
-        Files.DataProcessor.create_report()
+        IO.Reports.show_reviews(table)
 
     else:
         print('Goodbye')

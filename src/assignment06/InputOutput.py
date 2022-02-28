@@ -13,6 +13,7 @@ import pyinputplus as pip
 import Files
 import csv
 import datetime
+import re
 
 # ---DATA--- #
 HP_HR = 'HP_HR_Records.csv'
@@ -20,6 +21,7 @@ header = ['employee_id', 'name', 'address', 'ssn', 'dob', 'job_title', 'start_da
 table = []
 new_employee = 'new_employee.csv'
 new_questions = []
+regex = re.compile("^(?!666|000|9\\d{2})\\d{4}-(?!00)\\d{2}-(?!0{4})\\d{4}$")
 
 
 # ---I/O--- #
@@ -36,6 +38,7 @@ class Menu:
         Returns:
             None.
         """
+        print() #spacing
         print('HUMAN RESOURCES PROGRAM'.center(38))
         print('------Menu------'.center(38))
         print('\n[1] Load HR Records From File\n[2] Save Records to File\n[3] Add A New Employee')
@@ -76,12 +79,12 @@ class Reports:
         Returns:
             None.
         """
-        print(f'{"============ Human Resources File: Current Employees: ============":^95}')
+        print(f'{"============ Human Resources File: Current Employees ============":^95}')
         print()
-        print(f'{header[0]:<15}{header[1]:<20}{header[5]:<50}{header[6]:>12}')
+        print(f'{header[0].replace("_", " ").title():<15}{header[1].replace("_", " ").title():<20}{header[5].replace("_", " ").title():<30}{header[6].replace("_", " ").title():>12}')
         for row in table:
             if row['end_date'] == '':
-                print(f'{row["employee_id"]:<15}{row["name"]:<20}{row["job_title"]:<50}{row["start_date"]:>12}')
+                print(f'{row["employee_id"]:<15}{row["name"]:<20}{row["job_title"]:<30}{row["start_date"]:>12}')
         print(f'{"=" * 75:^95}')
 
     @staticmethod
@@ -98,16 +101,38 @@ class Reports:
         today = datetime.datetime.now()
         left_day = datetime.timedelta(days=31)
         time_since = today - left_day
-
+        print(f'{"============ Human Resources File: Employees Who Have Left Recently ============":^95}')
+        print()
+        print(f'{header[0].replace("_", " ").title():<15}{header[1].replace("_", " ").title():<20}{header[5].replace("_", " ").title():<30}{header[6].replace("_", " ").title():>12}{header[7].replace("_", " ").title():>12}')
         for row in table:
-            end_date = datetime.datetime.strptime(row['end_date'], '%m/%d/%Y')
-            if end_date >= time_since:
-                print(f'{"============ Human Resources File: Employees Who Have Left Recently: ============":^95}')
-                print()
-                print(f'{header[0]:<15}{header[1]:<20}{header[5]:<50}{header[6]:>12}')
-                print(f'{row["employee_id"]:<15}{row["name"]:<20}{row["job_title"]:<40}{row["start_date"]:>12}{row["end_date"]:>12}')
+            if row['end_date'] != '':
+                end_date = datetime.datetime.strptime(row['end_date'], '%m/%d/%Y')
+                if end_date >= time_since:
+
+                    print(f'{row["employee_id"]:<15}{row["name"]:<20}{row["job_title"]:<30}{row["start_date"]:>12}{row["end_date"]:>12}')
         print(f'{"=" * 75:^95}\n')
 
+    @staticmethod
+    def show_reviews(table):
+        """Displays upcoming employee reviews. These are for employees who's work anniversary are within 90 days.
+
+        Args:
+            table (list of dict): 2D data structure (list of dicts) that holds the data during runtime.
+
+        Returns:
+            None.
+        """
+        today = datetime.datetime.now()
+        review_time = datetime.timedelta(days=90) #days until review
+        review_date = today + review_time
+        print(review_date)
+        print(f'{"============ Human Resources File: Upcoming Reviews: ============":^95}')
+        print()
+        print(f'{header[0].replace("_", " ").title():<15}{header[1].replace("_", " ").title():<20}{header[5].replace("_", " ").title():<30}{header[6].replace("_", " ").title():>12}')
+        for row in table:
+            if datetime.datetime.strptime(row['start_date'], "%m/%d/%Y") <= review_date:
+                print(f'{row["employee_id"]:<15}{row["name"]:<20}{row["job_title"]:<30}{row["start_date"]:>12}')
+        print(f'{"=" * 75:^95}')
 
 class new_employee:
     """Class to get user input/add for new employee information to the list of employeess.
@@ -119,28 +144,59 @@ class new_employee:
 
     """
 
+    @staticmethod
     def employee_name():
         name = input('Enter employee\'s first and last name: ')
-        return name
+        return name.title()
 
+    @staticmethod
     def employee_address():
         address = input('Enter employee\'s address: ')
-        return address
+        return address.title()
 
+    @staticmethod
     def employee_ssn():
         ssn = input('Enter employee\'s ssn: ')
+        while not (re.fullmatch(regex, ssn)):
+            print("Invalid ssn format - please try again.")
+            ssn = input('Enter employee\'s ssn: ')
         return ssn
 
+    @staticmethod
     def employee_dob():
-        dob = input('Enter employee\'s dob: ')
-        return dob
 
+        while True:
+            dob_input = input('Enter employee\'s dob (MM/DD/YYYY): ')
+            try:
+                dob = datetime.datetime.strptime(dob_input, "%m/%d/%Y")
+                return dob
+            except ValueError:
+                print("Error: must be in MM/DD/YYYY format, please try again.")
+
+
+    @staticmethod
     def employee_job():
         job_title = input('Enter employee\'s job title: ')
         return job_title
 
+    @staticmethod
     def employee_start():
-        start_date = input('Enter employee\'s start date: ')
-        return start_date
+        month = None
+        day = None
+        year = None
+        while True:
+            start = input('Enter employee\'s start date (MM/DD/YYYY): ')
+            try:
+                start_date1 = datetime.datetime.strptime(start, "%m/%d/%Y")
+                print(start_date1)
+                start_date = datetime.date.strftime(start_date1, "%m/%d/%Y")
+                print(start_date)
+                return start_date
+            except ValueError:
+                print("Error: must be in MM/DD/YYYY format, please try again.")
 
 
+    @staticmethod
+    def employee_end():
+        end_date = ''
+        return end_date
