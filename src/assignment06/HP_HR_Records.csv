@@ -1,0 +1,11 @@
+employee_id,name,address,ssn,dob,job_title,start_date,end_date
+1,Anubhaw Arya,Seattle,1234-56-7890,1/1/1987,Lecturer,1/1/2021,
+2,Harry Potter,4 Privet Drive,0987-65-4321,7/31/1980,Head of the Dept. of Magic Law Enforcement,3/1/1991,5/1/1997
+3,Hermione Granger,56 Hampstead Garden,2645-25-9874,9/19/1979,Minister for Magic,6/1/1991,5/1/1997
+4,Severus Snape,349 Spinner's End,5930-65-9331,1/9/1960,Potions Professor,7/1/1971,5/2/1998
+5,Rubeus Hagris,Hagrid's Hut Hogwarts Grounds,0023-69-1245,12/6/1928,Gamekeeper,8/1/1940,
+6,Albus Potter,England,9965-88-6223,8/31/2006,Student,9/1/2017,
+7,Neville Longbottom,England,1352-35-1125,7/30/1980,Professor,2/1/1991,
+8,Luna Lovegood,"Ottery St Catchpole, Devon",2258-96-3214,2/13/1981,Magizoologist,2/1/1992,2/25/2022
+9,Ronald Weasley,The Burrow,0255-45-7845,3/1/1980,Co-Manager,4/1/1991,2/15/2022
+10,Sirius Black,Islington,1002-65-3210,11/3/1959,Assistant to the Order of the Pheonix,5/1/1971,6/18/1996
