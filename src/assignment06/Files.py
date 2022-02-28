@@ -21,14 +21,14 @@ table = []
 # Read in Human Resources file from csv using list format
 class FileProcessor:
     """Processing data to and from csv"""
-    @staticmethod
-    def verify_path(some_path_string):
-        some_path_string = input("Prompt to get path")
-
-        while not os.path.exists(some_path_string):
-            print('The HR file does not exist at the path you provided.')
-            some_path_string = input('Prompt to get path')
-        return some_path_string + '\\HP_HR_Records.csv'
+    # @staticmethod
+    # def verify_path(some_path_string):
+    #     some_path_string = input("Prompt to get path")
+    #
+    #     while not os.path.exists(some_path_string):
+    #         print('The HR file does not exist at the path you provided.')
+    #         some_path_string = input('Prompt to get path')
+    #     return some_path_string + '\\HP_HR_Records.csv'
 
     @staticmethod
     def read_file(file_name, table):
@@ -43,9 +43,10 @@ class FileProcessor:
             None
             """
 
-        # Read in questions from csv
+        # Read in employees from csv
+        table.clear()  # this clears existing data and allows to load data from file
         while True:
-            some_path_string = input("Prompt to get path")
+            some_path_string = input("Please enter the path where your HR Records are saved: \n")
             fullpath = some_path_string + '\\HP_HR_Records.csv'
             if os.path.exists(fullpath):
                 print(fullpath)
@@ -69,11 +70,19 @@ class FileProcessor:
         Returns:
             None.
             """
-        with open(file_name, mode='w', newline='') as f:
-            writer = csv.DictWriter(f, header)
-            writer.writeheader()
-            for row in table:
-                writer.writerow(row)
+        while True:
+            some_path_string = input("Please enter the directory path where you'd like to save your HR Records: \n")
+            fullpath = some_path_string + '\\HP_HR_Records.csv'
+            if os.path.exists(fullpath):
+                print(fullpath)
+                with open(fullpath, mode='w', newline='') as f:
+                    writer = csv.DictWriter(f, header)
+                    writer.writeheader()
+                    for row in table:
+                        writer.writerow(row)
+                    break
+            else:
+                print('That directory path was not found, please try again.')
 
 
 

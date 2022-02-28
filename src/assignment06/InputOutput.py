@@ -176,7 +176,8 @@ class new_employee:
         while True:
             dob_input = input('Enter employee\'s dob (MM/DD/YYYY): ')
             try:
-                dob = datetime.datetime.strptime(dob_input, "%m/%d/%Y")
+                dob1 = datetime.datetime.strptime(dob_input, "%m/%d/%Y")
+                dob = datetime.date.strftime(dob1, "%m/%d/%Y")
                 return dob
             except ValueError:
                 print("Error: must be in MM/DD/YYYY format, please try again.")
@@ -184,7 +185,7 @@ class new_employee:
     @staticmethod
     def employee_job():
         job_title = input('Enter employee\'s job title: ')
-        return job_title
+        return job_title.title()
 
     @staticmethod
     def employee_start():
@@ -195,9 +196,7 @@ class new_employee:
             start = input('Enter employee\'s start date (MM/DD/YYYY): ')
             try:
                 start_date1 = datetime.datetime.strptime(start, "%m/%d/%Y")
-                print(start_date1)
                 start_date = datetime.date.strftime(start_date1, "%m/%d/%Y")
-                print(start_date)
                 return start_date
             except ValueError:
                 print("Error: must be in MM/DD/YYYY format, please try again.")
