@@ -4,9 +4,9 @@
 # Change Log: (Who, When, What)
 # ALarson, 2022-02-25, Created file, started assignment
 # ALarson, 
-# ------------------------------------------#
-import InputOutput as IO
-import Files
+# ------------------------7------------------#
+import input_output as IO
+import files
 
 
 
@@ -17,7 +17,7 @@ table = []
 # #start here
 # if __name__ == '__main__':
 #     some_path_string = input("Prompt to get path")
-#     some_path_string = Files.FileProcessor.verify_path(some_path_string)
+#     some_path_string = files.FileProcessor.verify_path(some_path_string)
 
 while True:
 
@@ -29,7 +29,7 @@ while True:
                         'this will erase your work. \nPlease enter \'Yes\' to continue importing. Enter \'No\' to go back '
                         'to the main menu.\n')
             if y_n == 'Yes'.lower():
-                Files.FileProcessor.read_file(HP_HR, table)
+                files.FileProcessor.read_file(HP_HR, table)
                 print('File Found. Records loaded to file, back to main menu...\n')
                 break
             elif y_n == 'No'.lower():
@@ -39,12 +39,12 @@ while True:
                 print('Please select \'Yes\' or \'No\'.\n')
 
     elif choice == 2:
-        Files.FileProcessor.write_file(HP_HR, table)
+        files.FileProcessor.write_file(HP_HR, table)
 
     elif choice == 3:
-        # Files.FileProcessor.read_file(HP_HR, table) #first read in excisting employees otherwise the  new employee id will start at 1
+        # files.FileProcessor.read_file(HP_HR, table) #first read in excisting employees otherwise the  new employee id will start at 1
         employee_id = len(table)+1
-        new_employee = {'employee_id': employee_id, 'name': IO.new_employee.employee_name(), 'address': IO.new_employee.employee_address(), 'ssn': IO.new_employee.employee_ssn(), 'dob': IO.new_employee.employee_dob(), 'job_title': IO.new_employee.employee_job(), 'start_date': IO.new_employee.employee_start(), 'end_date': IO.new_employee.employee_end()}
+        new_employee = {'employee_id': employee_id, 'name': IO.NewEmployee.employee_name(), 'address': IO.NewEmployee.employee_address(), 'ssn': IO.NewEmployee.employee_ssn(), 'dob': IO.NewEmployee.employee_dob(), 'job_title': IO.NewEmployee.employee_job(), 'start_date': IO.NewEmployee.employee_start(), 'end_date': IO.NewEmployee.employee_end()}
         table.append(new_employee)
         # print(table)
 
