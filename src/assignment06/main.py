@@ -3,7 +3,7 @@
 # Desc: assignment 06
 # Change Log: (Who, When, What)
 # ALarson, 2022-02-25, Created file, started assignment
-# ALarson, 
+# ALarson, 2022-03-05, finished up tasks, added validation
 # ------------------------7------------------#
 import input_output as IO
 import files
